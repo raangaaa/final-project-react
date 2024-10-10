@@ -1,0 +1,24 @@
+1. Redux
+2. Path
+3. Pages
+4. Api
+
+
+
+/
+
+/explore
+/explore?search="movie|person|companies"
+/explore?tab="genre"
+/explore?tab="people"
+/explore/movie?genre="1"
+/explore/movie/{list}
+
+/detail/person/{id}
+/detail/movie/{id}
+/detail/company/{id}
+
+/favorite                                                      
+/watch_list                                                     
+/account                                                        
+/accoount/rated_movie   
