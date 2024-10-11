@@ -2,19 +2,26 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toogleTheme } from "../stores/actions/themeAction";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
 	const [isScrolled, setIsScrolled] = useState(false);
-	const theme = useSelector((state) => state.theme.theme)
-	const dispatch = useDispatch();
-	console.log(theme)
 
+	
+	const theme = useSelector((state) => state.theme.theme);
+	const dispatch = useDispatch();
+	const root = window.document.documentElement.classList;
 
 	const handleTheme = () => {
 		dispatch(toogleTheme());
-	}
-
-
+		if(theme === "dark") {
+			root.remove("dark")
+			root.add("light")
+		} else {
+			root.remove("light")
+			root.add("dark")
+		}
+	};
 
 	const handleScroll = () => {
 		if (window.scrollY > 400) {
@@ -33,10 +40,12 @@ const Navbar = () => {
 	return (
 		<nav
 			className={`navbar ${
-				isScrolled ? "bg-megenta-200" : "bg-transparent"
-			}  w-[97%] rounded-lg mx-4 mt-4 px-6 fixed top-0 z-[99] ease-in duration-200`}
+				isScrolled
+					? "dark:bg-megenta-200 bg-white"
+					: "dark:bg-transparent bg-white"
+			}  w-[97%] rounded-lg mx-4 mt-4 px-6 fixed top-0 z-[99] ease-in-out duration-200`}
 		>
-			<div className="navbar-start">
+			<div className="navbar-start text-gray-800 dark:text-white">
 				<div className="dropdown">
 					<div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
 						<svg
@@ -56,7 +65,7 @@ const Navbar = () => {
 					</div>
 					<ul
 						tabIndex={0}
-						className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+						className="menu menu-sm dropdown-content text-gray-800 dark:text-white rounded-box z-[1] mt-3 w-52 p-2 shadow"
 					>
 						<li>
 							<a>
@@ -154,7 +163,7 @@ const Navbar = () => {
 				<div className="hidden lg:flex ml-2">
 					<ul className="menu menu-horizontal px-1">
 						<li>
-							<a>
+							<Link to={"/"}>
 								<svg
 									className="w-[17px] h-[17px] text-gray-800 dark:text-white"
 									aria-hidden="true"
@@ -173,10 +182,10 @@ const Navbar = () => {
 									/>
 								</svg>
 								Home
-							</a>
+							</Link>
 						</li>
 						<li>
-							<a>
+							<Link to={"/explore"}>
 								<svg
 									className="w-[17px] h-[17px] text-gray-800 dark:text-white"
 									aria-hidden="true"
@@ -194,10 +203,10 @@ const Navbar = () => {
 									/>
 								</svg>
 								Explore
-							</a>
+							</Link>
 						</li>
 						<li>
-							<a>
+							<Link to={"/favorite"}>
 								<svg
 									className="w-[17px] h-[17px] text-gray-800 dark:text-white"
 									aria-hidden="true"
@@ -216,10 +225,10 @@ const Navbar = () => {
 									/>
 								</svg>
 								Favorite
-							</a>
+							</Link>
 						</li>
 						<li>
-							<a>
+							<Link to={"/watchlist"}>
 								<svg
 									className="w-[17px] h-[17px] text-gray-800 dark:text-white"
 									aria-hidden="true"
@@ -241,12 +250,12 @@ const Navbar = () => {
 									/>
 								</svg>
 								Watch List
-							</a>
+							</Link>
 						</li>
 					</ul>
 				</div>
 			</div>
-			<div className="navbar-end space-x-4">
+			<div className="navbar-end space-x-4 text-gray-800 dark:text-white">
 				<label className="input input-bordered hidden lg:flex items-center gap-2 h-7 text-sm">
 					<input type="text" className="grow" placeholder="Search Movie ..." />
 					<svg

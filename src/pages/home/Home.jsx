@@ -12,6 +12,9 @@ import {
 import { setPopularPeople } from "../../stores/actions/peopleAction";
 
 const Home = () => {
+	const [video, setVideo] = useState("");
+	const [randomMovie, setRamdomMovie] = useState({});
+	const [isLoading, setIsLoading] = useState(true);
 	const state = useSelector((state) => state);
 	const dispatch = useDispatch();
 	const headers = useMemo(
@@ -94,9 +97,6 @@ const Home = () => {
 		}
 	}, [dispatch, headers]);
 
-	const [video, setVideo] = useState("");
-	const [randomMovie, setRamdomMovie] = useState({});
-
 	const getRandomMovieWithVideos = useCallback(async () => {
 		try {
 			const randomIndex = Math.floor(
@@ -115,23 +115,23 @@ const Home = () => {
 				const id = videosResponse.data.results.find(
 					(result) => result.type === "Trailer"
 				).key;
-				const id2 = videosResponse.data.results.find(
-					(result) => result.type === "Teaser"
-				).key;
-				setVideo(
-					`https://www.youtube.com/embed/${
-						id ?? id2
-					}?controls=0&modestbranding=1&autoplay=1&mute=1&loop=1&showinfo=0&playlist=${
-						id ?? id2
-					}`
-				);
+				const id2 = videosResponse.data.results[0].key;
+				if(!isLoading) {
+					setVideo(
+						`https://www.youtube.com/embed/${
+							id ?? id2
+						}?controls=0&modestbranding=1&autoplay=1&mute=1&loop=1&showinfo=0&playlist=${
+							id ?? id2
+						}`
+					);
+				}
 			} else {
 				console.log("Tidak ada video trailer tersedia.");
 			}
 		} catch (error) {
 			console.error("Error:", error);
 		}
-	}, [headers, state.movie.now_playings]);
+	}, [headers, isLoading, state.movie.now_playings]);
 
 	useEffect(() => {
 		getRandomMovieWithVideos();
@@ -139,7 +139,7 @@ const Home = () => {
 
 	useEffect(() => {
 		const getData = async () => {
-			Promise.all([
+			await Promise.all([
 				fetchNowPlaying(),
 				fetchPopular(),
 				fetchTopRated(),
@@ -147,6 +147,8 @@ const Home = () => {
 				fetchUpcoming(),
 				fetchPopularPeople(),
 			]);
+
+			setIsLoading(false);
 		};
 
 		getData();
@@ -165,6 +167,7 @@ const Home = () => {
 			person={state.people}
 			video={video}
 			randomMovie={randomMovie}
+			isLoading={isLoading}
 		/>
 	);
 };

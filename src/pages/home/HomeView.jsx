@@ -3,19 +3,21 @@ import Card from "../../components/Card";
 import SeeMoreCard from "../../components/SeeMoreCard";
 import { memo } from "react";
 import "./Home.css";
+import { Link } from "react-router-dom";
 
-const HomeView = ({ movie, person, video, randomMovie }) => {
+const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 	const loop = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 	return (
-		<div className="min-h-screen w-full dark:bg-megenta-300 relative -z-10">
-			<div className="h-[530px] relative z-[2]">
-				<div className="fixed top-0 left-0 z-[-1]">
+		<div className="min-h-screen w-full dark:bg-megenta-300 bg-slate-300 relative -z-10">
+			<div className="h-[530px] relative z-[2] ">
+				<div className="fixed top-0 left-0 z-[-1] dark:bg-megenta-300 bg-slate-300">
 					<div className="relative flex overflow-hidden items-center py-14">
-						<div className="absolute w-1/6 h-full bg-gradient-to-r from-megenta-300 from-15% via-transparent to-transparent left-1/2"></div>
+						<div className="absolute w-1/6 h-full bg-gradient-to-r dark:from-megenta-300 from-slate-300 from-10% via-transparent to-transparent left-1/2"></div>
 						{/* Bagian konten kiri */}
-						<div className="w-1/2 flex px-16 bg-megenta-300 text-white space-x-7 h-max">
+						<div className="w-1/2 flex px-16 dark:bg-megenta-300 bg-slate-300 dark:text-white text-gray-800 space-x-7 h-max">
 							<div>
-								{randomMovie?.poster_path ? (
+								{randomMovie?.poster_path && !isLoading ? (
 									<div className="w-44 overflow-hidden rounded-lg shadow-lg transform">
 										{/* Poster film */}
 										<img
@@ -31,14 +33,17 @@ const HomeView = ({ movie, person, video, randomMovie }) => {
 								)}
 							</div>
 
-							{randomMovie ? (
+							{randomMovie && !isLoading ? (
 								<div className="flex flex-col justify-center">
 									<h1 className="text-2xl font-bold mb-4 cursor-pointer">
 										{randomMovie?.title}
 									</h1>
 									<p className="text-md mb-6">⭐ {randomMovie?.vote_average}</p>
 									<p className="mb-6 line-clamp-3">{randomMovie?.overview}</p>
-									<a className="px-5 py-2 flex items-center space-x-2 cursor-pointer rounded-full w-max bg-red-500 text-white font-semibold hover:bg-red-600">
+									<Link
+										to={"/detail/movie/" + randomMovie?.id}
+										className="px-5 py-2 flex items-center space-x-2 cursor-pointer rounded-full w-max bg-red-500 text-white font-semibold hover:bg-red-600"
+									>
 										<svg
 											className="w-[17px] h-[17px] text-gray-800 dark:text-white"
 											aria-hidden="true"
@@ -57,7 +62,7 @@ const HomeView = ({ movie, person, video, randomMovie }) => {
 										</svg>
 
 										<span>See detail</span>
-									</a>
+									</Link>
 								</div>
 							) : (
 								<div className="flex flex-col justify-center gap-5">
@@ -68,41 +73,42 @@ const HomeView = ({ movie, person, video, randomMovie }) => {
 							)}
 						</div>
 
-						{video ? (
+						{video && !isLoading ? (
 							<iframe
 								src={video}
 								title="YouTube video player"
 								frameBorder="0"
 								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-								className="w-1/2 h-[400px] object-cover"
+								className="w-1/2 h-[500px] object-cover"
 								allowFullScreen
 							></iframe>
 						) : (
 							<div className="w-1/2 h-[400px] object-cover"></div>
 						)}
-						<div className="absolute top-0 left-1/2 w-1/2 h-full bg-gradient-to-b from-megenta-300 from-15% via-transparent to-transparent"></div>
-						<div className="absolute top-0 left-1/2 w-1/2 h-full bg-gradient-to-t from-megenta-300 from-15% via-transparent to-transparent"></div>
+						<div className="absolute top-0 left-1/2 w-1/2 h-full bg-gradient-to-b dark:from-megenta-300 from-slate-300 from-10% via-transparent to-transparent"></div>
+						<div className="absolute top-0 left-1/2 w-1/2 h-full bg-gradient-to-t dark:from-megenta-300 from-slate-300 from-10% via-transparent to-transparent"></div>
+						<div className="absolute top-0 left-1/2 w-full h-full dark:bg-transparent bg-slate-300 opacity-40"></div>
 					</div>
 				</div>
 			</div>
 
-			<div className="relative bg-gradient-to-t from-megenta-300 from-90% z-30 space-y-20 pb-20">
+			<div className="relative bg-gradient-to-t dark:from-megenta-300 from-slate-300 from-90% z-30 space-y-20 pb-20 dark:text-white text-gray-800">
 				<div className="space-y-5">
 					<h3 className="font-bold text-3xl text-white pl-16">
 						🎬 Playing Now
 					</h3>
 					<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
 						<div className="flex space-x-10">
-							{movie && movie.now_playings.length > 0
+							{movie && movie.now_playings.length > 0 && !isLoading
 								? movie?.now_playings?.map((item, index) => (
-										<div key={index}>
+										<Link to={"/detail/movie/" + item.id} key={index}>
 											<Card data={item} />
-										</div>
+										</Link>
 								  ))
 								: loop?.map((item) => (
 										<div
 											key={item}
-											className="skeleton w-44 h-64 flex-shrink-0"
+											className="skeleton w-44 h-64 flex-shrink-0 dark:bg-black bg-white"
 										></div>
 								  ))}
 							<SeeMoreCard title={"Now Playing"} />
@@ -110,14 +116,14 @@ const HomeView = ({ movie, person, video, randomMovie }) => {
 					</div>
 				</div>
 				<div className="space-y-5">
-					<h3 className="font-bold text-3xl text-white pl-16">🔥 Trending</h3>
+					<h3 className="font-bold text-3xl pl-16">🔥 Trending</h3>
 					<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
 						<div className="flex space-x-10">
-							{movie && movie.trendings.length > 0
+							{movie && movie.trendings.length > 0 && !isLoading
 								? movie?.trendings?.map((item, index) => (
-										<div key={index}>
+										<Link to={"/detail/movie/" + item.id} key={index}>
 											<Card data={item} />
-										</div>
+										</Link>
 								  ))
 								: loop?.map((item) => (
 										<div
@@ -130,14 +136,16 @@ const HomeView = ({ movie, person, video, randomMovie }) => {
 					</div>
 				</div>
 				<div className="space-y-5">
-					<h3 className="font-bold text-3xl text-white pl-16">
-						👤 Popular Person
-					</h3>
+					<h3 className="font-bold text-3xl pl-16">👤 Popular Person</h3>
 					<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
 						<div className="flex space-x-10">
-							{person && person.populars.length > 0
+							{person && person.populars.length > 0 && !isLoading
 								? person?.populars?.map((item, index) => (
-										<div key={index} className="avatar">
+										<Link
+											to={"/detail/movie/" + item.id}
+											key={index}
+											className="avatar"
+										>
 											<div className="w-32 rounded-full">
 												<img
 													src={
@@ -147,7 +155,7 @@ const HomeView = ({ movie, person, video, randomMovie }) => {
 													alt={item.name}
 												/>
 											</div>
-										</div>
+										</Link>
 								  ))
 								: loop?.map((item) => (
 										<div
@@ -159,14 +167,14 @@ const HomeView = ({ movie, person, video, randomMovie }) => {
 					</div>
 				</div>
 				<div className="space-y-5">
-					<h3 className="font-bold text-3xl text-white pl-16">🗓️ Upcoming</h3>
+					<h3 className="font-bold text-3xl pl-16">🗓️ Upcoming</h3>
 					<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
 						<div className="flex space-x-10">
-							{movie && movie.upcomings.length > 0
+							{movie && movie.upcomings.length > 0 && !isLoading
 								? movie?.upcomings?.map((item, index) => (
-										<div key={index}>
+										<Link to={"/detail/movie/" + item.id} key={index}>
 											<Card data={item} />
-										</div>
+										</Link>
 								  ))
 								: loop?.map((item) => (
 										<div
@@ -179,14 +187,14 @@ const HomeView = ({ movie, person, video, randomMovie }) => {
 					</div>
 				</div>
 				<div className="space-y-5">
-					<h3 className="font-bold text-3xl text-white pl-16">👤 Popular</h3>
+					<h3 className="font-bold text-3xl pl-16">🚀 Popular</h3>
 					<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
 						<div className="flex space-x-10">
-							{movie && movie.populars.length > 0
+							{movie && movie.populars.length > 0 && !isLoading
 								? movie?.populars?.map((item, index) => (
-										<div key={index}>
+										<Link to={"/detail/movie/" + item.id} key={index}>
 											<Card data={item} />
-										</div>
+										</Link>
 								  ))
 								: loop?.map((item) => (
 										<div
@@ -199,14 +207,14 @@ const HomeView = ({ movie, person, video, randomMovie }) => {
 					</div>
 				</div>
 				<div className="space-y-5">
-					<h3 className="font-bold text-3xl text-white pl-16">🌟 Top Rated</h3>
+					<h3 className="font-bold text-3xl pl-16">🌟 Top Rated</h3>
 					<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
 						<div className="flex space-x-10">
-							{movie && movie.top_rateds.length > 0
+							{movie && movie.top_rateds.length > 0 && !isLoading
 								? movie?.top_rateds?.map((item, index) => (
-										<div key={index}>
+										<Link to={"/detail/movie/" + item.id} key={index}>
 											<Card data={item} />
-										</div>
+										</Link>
 								  ))
 								: loop?.map((item) => (
 										<div
@@ -228,6 +236,7 @@ HomeView.propTypes = {
 	person: PropTypes.object,
 	video: PropTypes.string,
 	randomMovie: PropTypes.object,
+	isLoading: PropTypes.bool,
 };
 
 export default memo(HomeView);

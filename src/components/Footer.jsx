@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
 	return (
 		<>
-			<footer className="footer dark:bg-megenta-200 text-base-content p-10">
+			<footer className="footer dark:bg-megenta-200 bg-white dark:text-white text-gray-800 p-10">
 				<nav>
 					<h6 className="footer-title">Pages</h6>
 					<Link to={"/"} className="link link-hover">
@@ -35,7 +35,7 @@ const Footer = () => {
 					<a className="link link-hover">Cookie policy</a>
 				</nav>
 			</footer>
-			<footer className="footer dark:bg-megenta-200 text-base-content border-base-300 border-t px-10 py-4">
+			<footer className="footer dark:bg-megenta-200 bg-white dark:text-white text-gray-800 border-base-300 border-t px-10 py-4">
 				<aside className="grid-flow-col items-center">
 					<svg
 						width="24"
