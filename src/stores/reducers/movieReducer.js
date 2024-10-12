@@ -29,7 +29,7 @@ const movieState = {
 	genres: [],
 	detail: {},
 	recommendations: [],
-	similar: [],
+	similars: [],
 };
 
 const movieReducer = (state = movieState, action) => {
@@ -102,7 +102,7 @@ const movieReducer = (state = movieState, action) => {
 		case SIMILAR:
 			return {
 				...state,
-				similar: action.payload,
+				similars: action.payload,
 			};
 		default:
 			return state;

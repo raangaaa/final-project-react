@@ -256,21 +256,24 @@ const Navbar = () => {
 				</div>
 			</div>
 			<div className="navbar-end space-x-4 text-gray-800 dark:text-white">
-				<label className="input input-bordered hidden lg:flex items-center gap-2 h-7 text-sm">
-					<input type="text" className="grow" placeholder="Search Movie ..." />
+				<Link to={"/explore"}>
 					<svg
+						className="w-7 h-7 text-gray-800 dark:text-white"
+						aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 16 16"
-						fill="currentColor"
-						className="h-4 w-4 opacity-70"
+						width="24"
+						height="24"
+						fill="none"
+						viewBox="0 0 24 24"
 					>
 						<path
-							fillRule="evenodd"
-							d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-							clipRule="evenodd"
+							stroke="currentColor"
+							strokeLinecap="round"
+							strokeWidth="2"
+							d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
 						/>
 					</svg>
-				</label>
+				</Link>
 				<label className="swap swap-rotate">
 					{/* this hidden checkbox controls the state */}
 					<input

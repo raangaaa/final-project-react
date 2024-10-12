@@ -5,9 +5,11 @@ import axios from "axios";
 
 const Detail = () => {
 	const [detailMovie, setDetailMovie] = useState({});
-	const [backdrops, setBackdrops] = useState([]);
-
-	console.log(detailMovie);
+	const [images, setImages] = useState({});
+	const [alternativeTitles, setAlternativeTitles] = useState([]);
+	const [recom, setRecom] = useState([]);
+	const [similars, setSimilars] = useState([]);
+	const [reviews, setReviews] = useState([]);
 	const { id } = useParams();
 
 	const headers = useMemo(
@@ -32,7 +34,7 @@ const Detail = () => {
 		}
 	}, [headers, id]);
 
-	const fetchImagesBackdrop = useCallback(async () => {
+	const fetchImages = useCallback(async () => {
 		try {
 			const response = await axios.get(
 				`https://api.themoviedb.org/3/movie/${id}/images`,
@@ -40,7 +42,63 @@ const Detail = () => {
 					headers,
 				}
 			);
-			setBackdrops(response.data.backdrops);
+			setImages(response.data);
+		} catch (err) {
+			console.error(err.message);
+		}
+	}, [headers, id]);
+
+	const fetchAlternativeTitle = useCallback(async () => {
+		try {
+			const response = await axios.get(
+				`https://api.themoviedb.org/3/movie/${id}/alternative_titles`,
+				{
+					headers,
+				}
+			);
+			setAlternativeTitles(response.data.titles);
+		} catch (err) {
+			console.error(err.message);
+		}
+	}, [headers, id]);
+
+	const fetchRecommendationsMovie = useCallback(async () => {
+		try {
+			const response = await axios.get(
+				`https://api.themoviedb.org/3/movie/${id}/recommendations`,
+				{
+					headers,
+				}
+			);
+			setRecom(response.data.results);
+		} catch (err) {
+			console.error(err.message);
+		}
+	}, [headers, id]);
+
+	const fetcSimilarsMovie = useCallback(async () => {
+		try {
+			const response = await axios.get(
+				`https://api.themoviedb.org/3/movie/${id}/similar`,
+				{
+					headers,
+				}
+			);
+			setSimilars(response.data.results);
+		} catch (err) {
+			console.error(err.message);
+		}
+	}, [headers, id]);
+
+	const fetchReviews = useCallback(async () => {
+		try {
+			const response = await axios.get(
+				`https://api.themoviedb.org/3/movie/${id}/reviews`,
+				{
+					headers,
+				}
+			);
+			setReviews(response.data.results);
 		} catch (err) {
 			console.error(err.message);
 		}
@@ -48,16 +106,36 @@ const Detail = () => {
 
 	useEffect(() => {
 		const getData = async () => {
-            await Promise.all([
-                fetchDetailMovie(),
-                fetchImagesBackdrop(),
-            ])
-        }
+			await Promise.all([
+				fetchDetailMovie(),
+				fetchImages(),
+				fetchAlternativeTitle(),
+				fetchRecommendationsMovie(),
+				fetcSimilarsMovie(),
+				fetchReviews(),
+			]);
+		};
 
-        getData();
-	}, [fetchDetailMovie, fetchImagesBackdrop]);
+		getData();
+	}, [
+		fetcSimilarsMovie,
+		fetchAlternativeTitle,
+		fetchDetailMovie,
+		fetchImages,
+		fetchRecommendationsMovie,
+		fetchReviews,
+	]);
 
-	return <DetailView detailMovie={detailMovie} backdrops={backdrops}/>;
+	return (
+		<DetailView
+			detailMovie={detailMovie}
+			images={images}
+			alternativeTitles={alternativeTitles}
+			recomens={recom}
+			similars={similars}
+			reviews={reviews}
+		/>
+	);
 };
 
 export default Detail;

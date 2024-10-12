@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { memo } from "react";
 
 const Card = ({ data }) => {
 	return (
@@ -40,4 +41,4 @@ Card.propTypes = {
 	data: PropTypes.object,
 };
 
-export default Card;
+export default memo(Card);
