@@ -12,7 +12,7 @@ const DetailMovie = () => {
 	const [similars, setSimilars] = useState([]);
 	const [reviews, setReviews] = useState([]);
 	const { id } = useParams();
-	// const [statusRating, setStatusRating] = useState({});
+	const [isLoading, setIsLoading] = useState(true);
 	const headers = useMemo(
 		() => ({
 			Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
@@ -34,9 +34,9 @@ const DetailMovie = () => {
 					},
 				}
 			);
-			if(response.data.status_code == 1) {
-				toast.success("Success add rating")
-			} else if(response.data.status_code == 12) {
+			if (response.data.status_code == 1) {
+				toast.success("Success add rating");
+			} else if (response.data.status_code == 12) {
 				toast.success("Success update rating");
 			} else {
 				toast.error("Failed add rating");
@@ -131,6 +131,7 @@ const DetailMovie = () => {
 	}, [headers, id]);
 
 	useEffect(() => {
+		setIsLoading(true);
 		const getData = async () => {
 			await Promise.all([
 				fetchDetailMovie(),
@@ -140,6 +141,7 @@ const DetailMovie = () => {
 				fetcSimilarsMovie(),
 				fetchReviews(),
 			]);
+			setIsLoading(false);
 		};
 
 		getData();
@@ -154,7 +156,7 @@ const DetailMovie = () => {
 
 	return (
 		<>
-			<Toaster />	
+			<Toaster />
 			<DetailView
 				detailMovie={detailMovie}
 				images={images}
@@ -163,6 +165,7 @@ const DetailMovie = () => {
 				similars={similars}
 				reviews={reviews}
 				addRating={addRating}
+				isLoading={isLoading}
 			/>
 		</>
 	);

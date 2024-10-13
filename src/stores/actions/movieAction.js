@@ -20,6 +20,8 @@ export const FAVORITE = "FAVORITE";
 export const RATED_MOVIE = "RATED_MOVIE";
 export const WATCH_LIST = "WATCH_LIST";
 
+export const DELETE_RATING = "DELETE_RATING";
+
 // list movie
 export const setNowPlaying = (data) => ({
 	type: NOW_PLAYING,
@@ -85,5 +87,10 @@ export const setRatedMovie = (data) => ({
 
 export const setWatchList = (data) => ({
 	type: WATCH_LIST,
+	payload: data,
+});
+
+export const deleteRating = (data) => ({
+	type: DELETE_RATING,
 	payload: data,
 });

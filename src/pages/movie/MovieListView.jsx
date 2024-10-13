@@ -28,7 +28,9 @@ const MovieListView = ({ movie, list, page, genreId }) => {
 				<div className="join">
 					<Link
 						to={`/explore/movie/${list}?page=${
-							parseInt(page) > 1 ? parseInt(page) - 1 : 1
+							parseInt(page) > 1 && parseInt(page) <= 500
+								? parseInt(page) - 1
+								: 1
 						}${genreId ? "&genre_id=" + genreId : ""}`}
 						className="join-item btn"
 					>
@@ -37,7 +39,9 @@ const MovieListView = ({ movie, list, page, genreId }) => {
 					<button className="join-item btn">Page {page ?? 1}</button>
 					<Link
 						to={`/explore/movie/${list}?page=${
-							parseInt(page) > 1 ? parseInt(page) + 1 : 2
+							parseInt(page) > 1 && parseInt(page) < 500
+								? parseInt(page) + 1
+								: 2
 						}${genreId ? "&genre_id=" + genreId : ""}`}
 						className="join-item btn"
 					>

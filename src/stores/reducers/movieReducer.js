@@ -10,9 +10,9 @@ import {
 	RATED_MOVIE,
 	WATCH_LIST,
 	GENRE,
-	DETAIL,
 	RECOMMENDATION,
 	SIMILAR,
+	DELETE_RATING,
 } from "../actions/movieAction";
 
 const movieState = {
@@ -88,11 +88,6 @@ const movieReducer = (state = movieState, action) => {
 				...state,
 				genres: action.payload,
 			};
-		case DETAIL:
-			return {
-				...state,
-				detail: action.payload,
-			};
 		case RECOMMENDATION:
 			return {
 				...state,
@@ -102,6 +97,11 @@ const movieReducer = (state = movieState, action) => {
 			return {
 				...state,
 				similars: action.payload,
+			};
+		case DELETE_RATING:
+			return {
+				...state,
+				rated_movies: action.payload,
 			};
 		default:
 			return state;

@@ -1,12 +1,13 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const ExplorePerson = ({ person, page }) => {
+const ExplorePerson = ({ person, page, isLoading }) => {
 	return (
 		<div
 			id="person"
 			className="dark:bg-megenta-300 bg-slate-300 dark:text-white text-gray-800 min-h-screen font-sans space-y-10 py-28"
 		>
+			{/* Breadcrumb */}
 			<div className="text-sm pl-16">
 				<nav className="flex justify-between" aria-label="Breadcrumb">
 					<ol className="inline-flex items-center mb-3 sm:mb-0">
@@ -152,40 +153,56 @@ const ExplorePerson = ({ person, page }) => {
 				</nav>
 			</div>
 
+			{/* Heading */}
 			<h1 className="text-4xl font-bold text-center">Person</h1>
 
+			{/* Rendering data person */}
 			<div className="w-[91.5%] grid grid-cols-5 mx-auto gap-4">
-				{person?.populars?.map((item, index) => (
-					<div
-						key={index}
-						className="flex flex-col gap-2 justify-center items-center"
-					>
-						<Link to={"/detail/person/" + item.id} className="avatar">
-							<div className="w-32 rounded-full">
-								<img
-									src={
-										"https://image.tmdb.org/t/p/original/" + item.profile_path
-									}
-									alt={item.name}
-								/>
+				{!isLoading
+					? person?.populars?.map((item, index) => (
+							<div
+								key={index}
+								className="flex flex-col gap-2 justify-center items-center"
+							>
+								<Link to={"/detail/person/" + item.id} className="avatar">
+									<div className="w-32 rounded-full">
+										<img
+											src={
+												"https://image.tmdb.org/t/p/original/" +
+												item.profile_path
+											}
+											alt={item.name}
+										/>
+									</div>
+								</Link>
+								<Link
+									to={"/detail/person/" + item.id}
+									className="text-lg font-medium"
+								>
+									{item.name}
+								</Link>
 							</div>
-						</Link>
-						<Link
-							to={"/detail/person/" + item.id}
-							className="text-lg font-medium"
-						>
-							{item.name}
-						</Link>
-					</div>
-				))}
+					  ))
+					: Array.from({ length: 20 }, (_, index) => (
+							<div
+								key={index}
+								className="flex flex-col gap-2 justify-center items-center"
+							>
+								<div className="skeleton h-32 w-32 shrink-0 rounded-full dark:bg-gray-950 bg-gray-500"></div>
+								<div className="skeleton h-4 w-28 dark:bg-gray-950 bg-gray-500"></div>
+							</div>
+					  ))}
 			</div>
 
+			{/* Pagination */}
 			<div className="w-full flex justify-center pt-10">
 				<div className="join">
 					<Link
 						to={
 							"/explore?tab=person&page=" +
-							(parseInt(page) > 1 ? parseInt(page) - 1 : 1)
+							(parseInt(page) > 1 && parseInt(page) <= 500
+								? parseInt(page) - 1
+								: 1)
 						}
 						className="join-item btn"
 					>
@@ -195,7 +212,9 @@ const ExplorePerson = ({ person, page }) => {
 					<Link
 						to={
 							"/explore?tab=person&page=" +
-							(parseInt(page) > 1 ? parseInt(page) + 1 : 2)
+							(parseInt(page) > 1 && parseInt(page) < 500
+								? parseInt(page) + 1
+								: 2)
 						}
 						className="join-item btn"
 					>
@@ -209,7 +228,8 @@ const ExplorePerson = ({ person, page }) => {
 
 ExplorePerson.propTypes = {
 	person: PropTypes.object,
-	page: PropTypes.string
+	page: PropTypes.string,
+	isLoading: PropTypes.bool,
 };
 
 export default ExplorePerson;

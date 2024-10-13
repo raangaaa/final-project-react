@@ -12,7 +12,7 @@ import {
 	setTrending,
 	setGenre,
 } from "../../stores/actions/movieAction";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { setPopularPeople } from "../../stores/actions/peopleAction";
 
 const Explore = () => {
@@ -20,6 +20,8 @@ const Explore = () => {
 	const dispatch = useDispatch();
 	const [isLoading, setIsLoading] = useState(true);
 	const [queryParams] = useSearchParams();
+	const navigate = useNavigate();
+
 	const headers = useMemo(
 		() => ({
 			Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
@@ -31,13 +33,15 @@ const Explore = () => {
 	const tab = queryParams.get("tab");
 	const page = queryParams.get("page");
 
-	const fetchPopularPeople = useCallback(async () => {
+	const fetchPopularPerson = useCallback(async () => {
+		setIsLoading(true);
 		try {
 			const response = await axios.get(
 				`https://api.themoviedb.org/3/person/popular?page=` + (page ?? 1),
 				{ headers }
 			);
 			dispatch(setPopularPeople(response.data.results));
+			setIsLoading(false);
 		} catch (err) {
 			console.error(err.message);
 		}
@@ -116,6 +120,7 @@ const Explore = () => {
 	}, [dispatch, headers]);
 
 	useEffect(() => {
+		setIsLoading(true);
 		const getData = async () => {
 			await Promise.all([
 				fetchNowPlaying(),
@@ -128,29 +133,40 @@ const Explore = () => {
 			setIsLoading(false);
 		};
 
-		getData();
+		if ((tab !== null && tab.toLowerCase()) === "genre") {
+			fetchMovieGenre();
+		} else if (tab !== null && tab.toLowerCase() === "person") {
+			fetchPopularPerson();
+		} else if (tab === null || tab === undefined) {
+			getData();
+		} else {
+			navigate("/explore");
+			return null;
+		}
 	}, [
+		fetchMovieGenre,
 		fetchNowPlaying,
 		fetchPopular,
+		fetchPopularPerson,
 		fetchTopRated,
 		fetchTrending,
 		fetchUpcoming,
+		navigate,
+		tab,
 	]);
-
-	useEffect(() => {
-		fetchMovieGenre();
-	}, [fetchMovieGenre]);
-
-	useEffect(() => {
-		fetchPopularPeople();
-	}, [fetchPopularPeople]);
 
 	if (tab !== null && tab.toLowerCase() === "genre") {
 		return <ExploreGenreView genres={state.movie.genres} />;
 	}
 
 	if (tab !== null && tab.toLowerCase() === "person") {
-		return <ExplorePersonView person={state.people} page={page} />;
+		return (
+			<ExplorePersonView
+				person={state.people}
+				page={page}
+				isLoading={isLoading}
+			/>
+		);
 	}
 
 	return <ExploreView movie={state.movie} isLoading={isLoading} />;

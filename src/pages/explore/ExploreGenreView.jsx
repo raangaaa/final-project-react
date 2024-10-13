@@ -7,6 +7,7 @@ const ExploreGenreView = ({genres}) => {
 			id="genre"
 			className="dark:bg-megenta-300 bg-slate-300 dark:text-white text-gray-800 min-h-screen font-sans space-y-10"
 		>
+			{/* Breadcrumb */}
 			<div className="text-sm pt-28 pl-16">
 				<nav className="flex justify-between" aria-label="Breadcrumb">
 					<ol className="inline-flex items-center mb-3 sm:mb-0">
@@ -154,8 +155,10 @@ const ExploreGenreView = ({genres}) => {
 				</nav>
 			</div>
 
+			{/* Heading */}
 			<h1 className="text-4xl font-bold text-center">List of Movie Genres</h1>
 
+			{/* Rendering data genre */}
 			<div className="w-[91.5%] mx-auto gap-3">
 				{genres?.map((item, index) => (
 					<Link

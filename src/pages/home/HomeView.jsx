@@ -6,8 +6,6 @@ import "./Home.css";
 import { Link } from "react-router-dom";
 
 const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
-	const loop = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
 	useEffect(() => {
 		const open = (sectionId) => {
 			const section = document.getElementById(sectionId);
@@ -21,6 +19,7 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 			id="home"
 			className="min-h-screen w-full dark:bg-megenta-300 bg-slate-300 relative -z-10"
 		>
+			{/* Hero section */}
 			<div className="h-[530px] relative z-[2] ">
 				<div className="fixed top-0 left-0 z-[-1] dark:bg-megenta-300 bg-slate-300">
 					<div className="relative flex overflow-hidden items-center py-14">
@@ -40,7 +39,7 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 										/>
 									</div>
 								) : (
-									<div className="skeleton h-64 w-44"></div>
+									<div className="skeleton h-64 w-44 dark:bg-gray-950 bg-gray-500"></div>
 								)}
 							</div>
 
@@ -76,10 +75,10 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 									</Link>
 								</div>
 							) : (
-								<div className="flex flex-col justify-center gap-5">
-									<div className="skeleton h-4 w-28"></div>
-									<div className="skeleton h-4 w-60"></div>
-									<div className="skeleton h-4 w-60"></div>
+								<div className="flex flex-col gap-5">
+									<div className="skeleton h-4 w-28 dark:bg-gray-950 bg-gray-500"></div>
+									<div className="skeleton h-4 w-60 dark:bg-gray-950 bg-gray-500"></div>
+									<div className="skeleton h-4 w-60 dark:bg-gray-950 bg-gray-500"></div>
 								</div>
 							)}
 						</div>
@@ -103,6 +102,7 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 				</div>
 			</div>
 
+			{/* List Movie */}
 			<div className="relative bg-gradient-to-t dark:from-megenta-300 from-slate-300 from-90% z-30 space-y-20 pb-20 dark:text-white text-gray-800">
 				<div className="space-y-5">
 					<h3 className="font-bold text-3xl pl-16">🎬 Playing Now</h3>
@@ -114,10 +114,10 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 											<Card data={item} />
 										</Link>
 								  ))
-								: loop?.map((item) => (
+								: Array.from({ length: 20 }, (_, index) => (
 										<div
-											key={item}
-											className="skeleton w-44 h-64 flex-shrink-0 dark:bg-black bg-white"
+											key={index}
+											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 										></div>
 								  ))}
 							<SeeMoreCard title={"Now Playing"} />
@@ -134,10 +134,10 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 											<Card data={item} />
 										</Link>
 								  ))
-								: loop?.map((item) => (
+								: Array.from({ length: 20 }, (_, index) => (
 										<div
-											key={item}
-											className="skeleton w-44 h-64 flex-shrink-0"
+											key={index}
+											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 										></div>
 								  ))}
 							<SeeMoreCard title={"Trending"} />
@@ -166,11 +166,14 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 											</div>
 										</Link>
 								  ))
-								: loop?.map((item) => (
+								: Array.from({ length: 20 }, (_, index) => (
 										<div
-											key={item}
-											className="skeleton w-32 h-32 flex-shrink-0 rounded-full"
-										></div>
+											key={index}
+											className="flex flex-col gap-2 justify-center items-center"
+										>
+											<div className="skeleton h-32 w-32 shrink-0 rounded-full dark:bg-gray-950 bg-gray-500"></div>
+											<div className="skeleton h-4 w-28 dark:bg-gray-950 bg-gray-500"></div>
+										</div>
 								  ))}
 						</div>
 					</div>
@@ -185,10 +188,10 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 											<Card data={item} />
 										</Link>
 								  ))
-								: loop?.map((item) => (
+								: Array.from({ length: 20 }, (_, index) => (
 										<div
-											key={item}
-											className="skeleton w-44 h-64 flex-shrink-0"
+											key={index}
+											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 										></div>
 								  ))}
 							<SeeMoreCard title={"Upcoming"} />
@@ -205,10 +208,10 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 											<Card data={item} />
 										</Link>
 								  ))
-								: loop?.map((item) => (
+								: Array.from({ length: 20 }, (_, index) => (
 										<div
-											key={item}
-											className="skeleton w-44 h-64 flex-shrink-0"
+											key={index}
+											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 										></div>
 								  ))}
 							<SeeMoreCard title={"Popular"} />
@@ -225,10 +228,10 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 											<Card data={item} />
 										</Link>
 								  ))
-								: loop?.map((item) => (
+								: Array.from({ length: 20 }, (_, index) => (
 										<div
-											key={item}
-											className="skeleton w-44 h-64 flex-shrink-0"
+											key={index}
+											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 										></div>
 								  ))}
 							<SeeMoreCard title={"Top Rated"} />

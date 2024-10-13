@@ -4,13 +4,12 @@ import SeeMoreCard from "../../components/SeeMoreCard";
 import Card from "../../components/Card";
 
 const ExploreView = ({ movie, isLoading }) => {
-	const loop = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
 	return (
 		<div
 			id="explore"
 			className="dark:bg-megenta-300 bg-slate-300 dark:text-white text-gray-800 min-h-screen font-sans space-y-10 py-28"
 		>
+			{/* Breadcrumb */}
 			<div className="text-sm pl-16">
 				<nav className="flex justify-between" aria-label="Breadcrumb">
 					<ol className="inline-flex items-center mb-3 sm:mb-0">
@@ -158,6 +157,7 @@ const ExploreView = ({ movie, isLoading }) => {
 				</nav>
 			</div>
 
+			{/* Search & Heading */}
 			<div className="flex flex-col gap-5 items-center">
 				<h1 className="text-4xl font-bold">Search for Movie</h1>
 				<label className="input w-1/2 input-bordered flex items-center gap-2">
@@ -177,6 +177,7 @@ const ExploreView = ({ movie, isLoading }) => {
 				</label>
 			</div>
 
+			{/* Rendering data movie */}
 			<div className="bg-gradient-to-t dark:from-megenta-300 from-slate-300 from-90% z-30 space-y-20 dark:text-white text-gray-800">
 				<div className="space-y-5">
 					<h3 className="font-bold text-3xl pl-16">🎬 Playing Now</h3>
@@ -188,10 +189,10 @@ const ExploreView = ({ movie, isLoading }) => {
 											<Card data={item} />
 										</Link>
 								  ))
-								: loop?.map((item) => (
+								: Array.from({ length: 20 }, (_, index) => (
 										<div
-											key={item}
-											className="skeleton w-44 h-64 flex-shrink-0 dark:bg-black bg-white"
+											key={index}
+											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 										></div>
 								  ))}
 							<SeeMoreCard title={"Now Playing"} />
@@ -208,10 +209,10 @@ const ExploreView = ({ movie, isLoading }) => {
 											<Card data={item} />
 										</Link>
 								  ))
-								: loop?.map((item) => (
+								: Array.from({ length: 20 }, (_, index) => (
 										<div
-											key={item}
-											className="skeleton w-44 h-64 flex-shrink-0"
+											key={index}
+											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 										></div>
 								  ))}
 							<SeeMoreCard title={"Trending"} />
@@ -228,10 +229,10 @@ const ExploreView = ({ movie, isLoading }) => {
 											<Card data={item} />
 										</Link>
 								  ))
-								: loop?.map((item) => (
+								: Array.from({ length: 20 }, (_, index) => (
 										<div
-											key={item}
-											className="skeleton w-44 h-64 flex-shrink-0"
+											key={index}
+											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 										></div>
 								  ))}
 							<SeeMoreCard title={"Upcoming"} />
@@ -248,10 +249,10 @@ const ExploreView = ({ movie, isLoading }) => {
 											<Card data={item} />
 										</Link>
 								  ))
-								: loop?.map((item) => (
+								: Array.from({ length: 20 }, (_, index) => (
 										<div
-											key={item}
-											className="skeleton w-44 h-64 flex-shrink-0"
+											key={index}
+											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 										></div>
 								  ))}
 							<SeeMoreCard title={"Popular"} />
@@ -268,10 +269,10 @@ const ExploreView = ({ movie, isLoading }) => {
 											<Card data={item} />
 										</Link>
 								  ))
-								: loop?.map((item) => (
+								: Array.from({ length: 20 }, (_, index) => (
 										<div
-											key={item}
-											className="skeleton w-44 h-64 flex-shrink-0"
+											key={index}
+											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 										></div>
 								  ))}
 							<SeeMoreCard title={"Top Rated"} />
