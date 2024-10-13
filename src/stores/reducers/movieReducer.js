@@ -27,7 +27,6 @@ const movieState = {
 	rated_movies: [],
 	watch_lists: [],
 	genres: [],
-	detail: {},
 	recommendations: [],
 	similars: [],
 };

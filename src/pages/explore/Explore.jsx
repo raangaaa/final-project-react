@@ -49,7 +49,6 @@ const Explore = () => {
 				"https://api.themoviedb.org/3/genre/movie/list",
 				{ headers }
 			);
-			console.log(response);
 			dispatch(setGenre(response.data.genres));
 		} catch (err) {
 			console.error(err.message);

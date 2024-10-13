@@ -9,7 +9,6 @@ export const SEARCH = "SEARCH";
 export const FILTER = "FILTER";
 
 // detail movie
-export const DETAIL = "DETAIL";
 export const RECOMMENDATION = "RECOMMENDATION";
 export const SIMILAR = "SIMILAR";
 
@@ -54,12 +53,6 @@ export const setSearch = (data) => ({
 
 export const setFilter = (data) => ({
 	type: FILTER,
-	payload: data,
-});
-
-// detail movie
-export const setDetail = (data) => ({
-	type: DETAIL,
 	payload: data,
 });
 

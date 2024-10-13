@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import Card from "../../components/Card";
 import { memo, useEffect, useState } from "react";
 
-const DetailView = ({
+const DetailMovieView = ({
 	detailMovie,
 	images,
 	alternativeTitles,
 	recomens,
 	similars,
 	reviews,
+	addRating,
 }) => {
 	const scrollToSection = (sectionId) => {
 		const section = document.getElementById(sectionId);
@@ -31,6 +32,9 @@ const DetailView = ({
 			id="detail"
 			className="dark:bg-megenta-300 bg-slate-300 dark:text-white text-gray-800 min-h-screen py-14"
 		>
+			<div className="absolute top-28 left-1/2 z-[99]">
+
+			</div>
 			<div className="flex relative">
 				<div className="w-[38%] flex flex-col justify-center gap-5 pl-20">
 					<h1 className="text-3xl font-semibold font-sans">
@@ -111,6 +115,43 @@ const DetailView = ({
 								/>
 							</svg>
 						</button>
+					</div>
+					<div className="rating">
+						<input
+							type="radio"
+							className="mask mask-star-2 bg-red-500"
+							name="rating-2"
+							value={2}
+							onChange={(i) => addRating(detailMovie?.id, i.target.value)}
+						/>
+						<input
+							type="radio"
+							className="mask mask-star-2 bg-red-500"
+							name="rating-2"
+							value={4}
+							onChange={(i) => addRating(detailMovie?.id, i.target.value)}
+						/>
+						<input
+							type="radio"
+							className="mask mask-star-2 bg-red-500"
+							name="rating-2"
+							value={6}
+							onChange={(i) => addRating(detailMovie?.id, i.target.value)}
+						/>
+						<input
+							type="radio"
+							className="mask mask-star-2 bg-red-500"
+							name="rating-2"
+							value={8}
+							onChange={(i) => addRating(detailMovie?.id, i.target.value)}
+						/>
+						<input
+							type="radio"
+							className="mask mask-star-2 bg-red-500"
+							name="rating-2"
+							value={10}
+							onChange={(i) => addRating(detailMovie?.id, i.target.value)}
+						/>
 					</div>
 				</div>
 				<div className="w-[62%] relative">
@@ -433,13 +474,14 @@ const DetailView = ({
 	);
 };
 
-DetailView.propTypes = {
+DetailMovieView.propTypes = {
 	detailMovie: PropTypes.object,
 	images: PropTypes.object,
 	alternativeTitles: PropTypes.array,
 	recomens: PropTypes.array,
 	similars: PropTypes.array,
 	reviews: PropTypes.array,
+	addRating: PropTypes.func.isRequired,
 };
 
-export default memo(DetailView);
+export default memo(DetailMovieView);

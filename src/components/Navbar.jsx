@@ -317,19 +317,34 @@ const Navbar = () => {
 					</div>
 					<ul
 						tabIndex={0}
-						className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+						className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow border-black border dark:bg-gray-800"
 					>
 						<li>
-							<a className="justify-between">
+							<Link to={"https://www.themoviedb.org/u/ranga__?language=en-EN"}>
 								Profile
-								<span className="badge">New</span>
-							</a>
+							</Link>
 						</li>
 						<li>
-							<a>Settings</a>
+							<Link
+								to={
+									"https://www.themoviedb.org/settings/account?language=en-EN"
+								}
+							>
+								Setting
+							</Link>
 						</li>
 						<li>
-							<a>Logout</a>
+							<Link
+								to={
+									"https://developer.themoviedb.org/reference/intro/getting-started"
+								}
+							>
+								API
+							</Link>
+						</li>
+							<hr />
+						<li>
+							<Link to={"/rated/movie"}>Rated Movie</Link>
 						</li>
 					</ul>
 				</div>{" "}

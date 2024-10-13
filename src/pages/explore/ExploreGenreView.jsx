@@ -160,7 +160,7 @@ const ExploreGenreView = ({genres}) => {
 				{genres?.map((item, index) => (
 					<Link
 						key={index}
-						to={`/explore/movie/genre?genre=` + item.id}
+						to={`/explore/movie/genre?genre_id=` + item.id}
 						className="btn btn-neutral m-3"
 					>
 						{item.name}

@@ -28,7 +28,7 @@ const Home = () => {
 	const fetchNowPlaying = useCallback(async () => {
 		try {
 			const response = await axios.get(
-				"https://api.themoviedb.org/3/movie/now_playing?append_to_response=videos",
+				"https://api.themoviedb.org/3/movie/now_playing",
 				{ headers }
 			);
 			dispatch(setNowPlaying(response.data.results));

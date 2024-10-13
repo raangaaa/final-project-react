@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom";
-import DetailView from "./DetailView";
+import DetailView from "./DetailMovieView";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
-const Detail = () => {
+const DetailMovie = () => {
 	const [detailMovie, setDetailMovie] = useState({});
 	const [images, setImages] = useState({});
 	const [alternativeTitles, setAlternativeTitles] = useState([]);
@@ -11,7 +12,7 @@ const Detail = () => {
 	const [similars, setSimilars] = useState([]);
 	const [reviews, setReviews] = useState([]);
 	const { id } = useParams();
-
+	// const [statusRating, setStatusRating] = useState({});
 	const headers = useMemo(
 		() => ({
 			Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
@@ -19,6 +20,31 @@ const Detail = () => {
 		}),
 		[]
 	);
+
+	const addRating = async (movieId, rating) => {
+		try {
+			const response = await axios.post(
+				`https://api.themoviedb.org/3/movie/${movieId}/rating`,
+				{ value: rating },
+				{
+					headers: {
+						Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
+						"Content-Type": "application/json;charset=utf-8",
+						accept: "application/json",
+					},
+				}
+			);
+			if(response.data.status_code == 1) {
+				toast.success("Success add rating")
+			} else if(response.data.status_code == 12) {
+				toast.success("Success update rating");
+			} else {
+				toast.error("Failed add rating");
+			}
+		} catch (err) {
+			console.error(err.message);
+		}
+	};
 
 	const fetchDetailMovie = useCallback(async () => {
 		try {
@@ -127,15 +153,19 @@ const Detail = () => {
 	]);
 
 	return (
-		<DetailView
-			detailMovie={detailMovie}
-			images={images}
-			alternativeTitles={alternativeTitles}
-			recomens={recom}
-			similars={similars}
-			reviews={reviews}
-		/>
+		<>
+			<Toaster />	
+			<DetailView
+				detailMovie={detailMovie}
+				images={images}
+				alternativeTitles={alternativeTitles}
+				recomens={recom}
+				similars={similars}
+				reviews={reviews}
+				addRating={addRating}
+			/>
+		</>
 	);
 };
 
-export default Detail;
+export default DetailMovie;
