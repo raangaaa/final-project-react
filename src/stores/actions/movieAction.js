@@ -17,10 +17,14 @@ export const GENRE = "GENRE";
 
 // list movie user
 export const FAVORITE = "FAVORITE";
-export const RATED_MOVIE = "RATED_MOVIE";
-export const WATCH_LIST = "WATCH_LIST";
+export const DELETE_FAVORITE = "DELETE_FAVORITE";
 
+export const RATED_MOVIE = "RATED_MOVIE";
 export const DELETE_RATING = "DELETE_RATING";
+
+export const WATCH_LIST = "WATCH_LIST";
+export const DELETE_WATCH_LIST = "DELETE_WATCH_LIST";
+
 
 // list movie
 export const setNowPlaying = (data) => ({
@@ -79,9 +83,17 @@ export const setFavorite = (data) => ({
 	type: FAVORITE,
 	payload: data,
 });
+export const deleteFavorite = (data) => ({
+	type: DELETE_FAVORITE,
+	payload: data,
+});
 
 export const setRatedMovie = (data) => ({
 	type: RATED_MOVIE,
+	payload: data,
+});
+export const deleteRating = (data) => ({
+	type: DELETE_RATING,
 	payload: data,
 });
 
@@ -89,8 +101,8 @@ export const setWatchList = (data) => ({
 	type: WATCH_LIST,
 	payload: data,
 });
-
-export const deleteRating = (data) => ({
-	type: DELETE_RATING,
+export const deleteWatchList = (data) => ({
+	type: DELETE_WATCH_LIST,
 	payload: data,
 });
+

@@ -10,6 +10,8 @@ import Error404 from "./pages/error/Error404";
 import Explore from "./pages/explore/Explore";
 import MovieList from "./pages/movie/MovieList";
 import RatedMovie from "./pages/rated/RatedMovie";
+import Favorite from "./pages/favorite/Favorite";
+import Watchlist from "./pages/watchlist/Watchlist";
 
 //
 const App = () => {
@@ -24,8 +26,8 @@ const App = () => {
 					<Route path="/detail/movie/:id" element={<Detail />} />
 					<Route path="/detail/person/:id" />
 					<Route path="/detail/company/:id" />
-					<Route path="/favorite" />
-					<Route path="/watchlist" />
+					<Route path="/favorite" element={<Favorite />} />
+					<Route path="/watchlist" element={<Watchlist />} />
 					<Route path="/rated/movie" element={<RatedMovie />} />
 					<Route path="/*" element={<Error404 />} />
 				</Routes>

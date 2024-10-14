@@ -1,19 +1,18 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import Card from "../../components/Card"
-import { memo } from "react";
+import Card from "../../components/Card";
 
-const RatedMovieView = ({ movie, deleteRatedMovie, isLoading }) => {
+const FavoriteView = ({ favorites, isLoading, deleteFavoriteMovie }) => {
 	return (
 		<div
-			id="movie"
+			id="favorite"
 			className="dark:bg-megenta-300 bg-slate-300 dark:text-white text-gray-800 min-h-screen font-sans space-y-10 py-28"
 		>
-			<h1 className="text-4xl font-bold text-center">Rated Movie</h1>
+			<h1 className="text-4xl font-bold text-center">Favorite Movie</h1>
 
 			<div className="w-[91.5%] grid grid-cols-5 mx-auto gap-4">
 				{!isLoading
-					? movie?.map((item, index) => (
+					? favorites?.results?.map((item, index) => (
 							<div
 								key={index}
 								className="flex flex-col gap-2 justify-center items-center"
@@ -22,7 +21,7 @@ const RatedMovieView = ({ movie, deleteRatedMovie, isLoading }) => {
 									<Card data={item} />
 								</Link>
 								<button
-									onClick={() => deleteRatedMovie(item.id)}
+									onClick={() => deleteFavoriteMovie(item.id)}
 									type="button"
 									className="flex items-center gap-2 outline-none text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700"
 								>
@@ -43,7 +42,7 @@ const RatedMovieView = ({ movie, deleteRatedMovie, isLoading }) => {
 											d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"
 										/>
 									</svg>
-									Delete rating
+									Delete favorite
 								</button>
 							</div>
 					  ))
@@ -54,36 +53,14 @@ const RatedMovieView = ({ movie, deleteRatedMovie, isLoading }) => {
 							></div>
 					  ))}
 			</div>
-
-			{/* <div className="w-full flex justify-center pt-10">
-				<div className="join">
-					<Link
-						to={`/explore/movie/${list}?page=${
-							parseInt(page) > 1 ? parseInt(page) - 1 : 1
-						}${genreId ? "&genre_id=" + genreId : ""}`}
-						className="join-item btn"
-					>
-						«
-					</Link>
-					<button className="join-item btn">Page {page ?? 1}</button>
-					<Link
-						to={`/explore/movie/${list}?page=${
-							parseInt(page) > 1 ? parseInt(page) + 1 : 2
-						}${genreId ? "&genre_id=" + genreId : ""}`}
-						className="join-item btn"
-					>
-						»
-					</Link>
-				</div>
-			</div> */}
 		</div>
 	);
 };
 
-RatedMovieView.propTypes = {
-	movie: PropTypes.array,
-	deleteRatedMovie: PropTypes.func.isRequired,
-	isLoading: PropTypes.bool
+FavoriteView.propTypes = {
+	favorites: PropTypes.object,
+	isLoading: PropTypes.bool,
+	deleteFavoriteMovie: PropTypes.func.isRequired
 };
 
-export default memo(RatedMovieView)
+export default FavoriteView

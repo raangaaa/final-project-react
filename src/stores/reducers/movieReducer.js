@@ -13,22 +13,27 @@ import {
 	RECOMMENDATION,
 	SIMILAR,
 	DELETE_RATING,
+	DELETE_FAVORITE,
+	DELETE_WATCH_LIST,
 } from "../actions/movieAction";
 
 const movieState = {
 	now_playings: [],
-	populars: [],
-	top_rateds: [],
-	upcomings: [],
 	trendings: [],
+	populars: [],
+	upcomings: [],
+	top_rateds: [],
+
 	searchs: [],
 	filters: [],
-	favorites: [],
+
 	rated_movies: [],
-	watch_lists: [],
 	genres: [],
 	recommendations: [],
 	similars: [],
+
+	favorites: {},
+	watchlists: {},
 };
 
 const movieReducer = (state = movieState, action) => {
@@ -81,7 +86,7 @@ const movieReducer = (state = movieState, action) => {
 		case WATCH_LIST:
 			return {
 				...state,
-				watch_lists: action.payload,
+				watchlists: action.payload,
 			};
 		case GENRE:
 			return {
@@ -102,6 +107,16 @@ const movieReducer = (state = movieState, action) => {
 			return {
 				...state,
 				rated_movies: action.payload,
+			};
+		case DELETE_FAVORITE:
+			return {
+				...state,
+				favorites: action.payload,
+			};
+		case DELETE_WATCH_LIST:
+			return {
+				...state,
+				watchlists: action.payload,
 			};
 		default:
 			return state;

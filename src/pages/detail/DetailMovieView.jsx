@@ -12,6 +12,8 @@ const DetailMovieView = ({
 	reviews,
 	addRating,
 	isLoading,
+	addFavorite,
+	addWatchlist,
 }) => {
 	const scrollToSection = (sectionId) => {
 		const section = document.getElementById(sectionId);
@@ -76,7 +78,12 @@ const DetailMovieView = ({
 								>
 									Official
 								</Link>
-								<button className="btn bg-red-600 border-none">
+								{/* Button Favorite */}
+								<button
+									className="btn bg-red-700 hover:bg-red-800 border-none"
+									title="Add to favorite"
+									onClick={() => addFavorite(detailMovie?.id)}
+								>
 									<svg
 										className="w-6 h-6 text-white"
 										aria-hidden="true"
@@ -95,7 +102,12 @@ const DetailMovieView = ({
 										/>
 									</svg>
 								</button>
-								<button className="btn bg-yellow-500 border-none">
+								{/* Button Watchlist */}
+								<button
+									className="btn bg-yellow-500 hover:bg-yellow-600 border-none"
+									title="Add to watchlist"
+									onClick={() => addWatchlist(detailMovie?.id)}
+								>
 									<svg
 										className="w-6 h-6 text-white"
 										aria-hidden="true"
@@ -496,6 +508,8 @@ DetailMovieView.propTypes = {
 	reviews: PropTypes.array,
 	addRating: PropTypes.func.isRequired,
 	isLoading: PropTypes.bool,
+	addFavorite: PropTypes.func.isRequired,
+	addWatchlist: PropTypes.func.isRequired
 };
 
 export default memo(DetailMovieView);

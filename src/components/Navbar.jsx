@@ -43,7 +43,7 @@ const Navbar = () => {
 				isScrolled
 					? "dark:bg-megenta-200 bg-white"
 					: "dark:bg-transparent bg-white"
-			}  w-[97%] rounded-lg mx-4 mt-4 px-6 fixed top-0 z-[99] ease-in-out duration-200`}
+			}  w-[97%] dark:bg-opacity-100 bg-opacity-50 rounded-lg mx-4 mt-4 px-6 fixed top-0 z-[99] ease-in-out duration-200`}
 		>
 			<div className="navbar-start text-gray-800 dark:text-white">
 				<div className="dropdown">
@@ -342,7 +342,7 @@ const Navbar = () => {
 								API
 							</Link>
 						</li>
-							<hr />
+						<hr />
 						<li>
 							<Link to={"/rated/movie"}>Rated Movie</Link>
 						</li>

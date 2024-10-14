@@ -46,6 +46,52 @@ const DetailMovie = () => {
 		}
 	};
 
+	const addFavorite = async (movieId) => {
+		try {
+			const response = await axios.post(
+				`https://api.themoviedb.org/3/account/21559324/favorite`,
+				{ media_type: "movie", media_id: movieId, favorite: true },
+				{
+					headers: {
+						Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
+						"Content-Type": "application/json;charset=utf-8",
+						accept: "application/json",
+					},
+				}
+			);
+			if (response.data.status_code == 1) {
+				toast.success("Success add favorite");
+			} else {
+				toast.error("Failed add favorite");
+			}
+		} catch (err) {
+			console.error(err.message);
+		}
+	};
+
+	const addWatchlist = async (movieId) => {
+		try {
+			const response = await axios.post(
+				`https://api.themoviedb.org/3/account/21559324/watchlist`,
+				{ media_type: "movie", media_id: movieId, watchlist: true },
+				{
+					headers: {
+						Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
+						"Content-Type": "application/json;charset=utf-8",
+						accept: "application/json",
+					},
+				}
+			);
+			if (response.data.status_code == 1) {
+				toast.success("Success add watchlist");
+			} else {
+				toast.error("Failed add watchlist");
+			}
+		} catch (err) {
+			console.error(err.message);
+		}
+	};
+
 	const fetchDetailMovie = useCallback(async () => {
 		try {
 			const response = await axios.get(
@@ -166,6 +212,8 @@ const DetailMovie = () => {
 				reviews={reviews}
 				addRating={addRating}
 				isLoading={isLoading}
+				addFavorite={addFavorite}
+				addWatchlist={addWatchlist}
 			/>
 		</>
 	);
