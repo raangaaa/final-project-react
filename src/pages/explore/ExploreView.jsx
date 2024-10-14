@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import SeeMoreCard from "../../components/SeeMoreCard";
 import Card from "../../components/Card";
 
-const ExploreView = ({ movie, isLoading }) => {
+const ExploreView = ({ movie, isLoading, search, searchMovie }) => {
 	return (
 		<div
 			id="explore"
@@ -161,7 +161,14 @@ const ExploreView = ({ movie, isLoading }) => {
 			<div className="flex flex-col gap-5 items-center">
 				<h1 className="text-4xl font-bold">Search for Movie</h1>
 				<label className="input w-1/2 input-bordered flex items-center gap-2">
-					<input type="text" className="grow" placeholder="Search" autoFocus />
+					<input
+						type="text"
+						className="grow"
+						placeholder="Search"
+						autoFocus
+						onChange={(i) => searchMovie(i.target.value)}
+						value={search}
+					/>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 16 16"
@@ -178,108 +185,186 @@ const ExploreView = ({ movie, isLoading }) => {
 			</div>
 
 			{/* Rendering data movie */}
-			<div className="bg-gradient-to-t dark:from-megenta-300 from-slate-300 from-90% z-30 space-y-20 dark:text-white text-gray-800">
-				<div className="space-y-5">
-					<h3 className="font-bold text-3xl pl-16">🎬 Playing Now</h3>
-					<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
-						<div className="flex space-x-10">
-							{movie && movie.now_playings.length > 0 && !isLoading
-								? movie?.now_playings?.map((item, index) => (
-										<Link to={"/detail/movie/" + item.id} key={index}>
-											<Card data={item} />
-										</Link>
-								  ))
-								: Array.from({ length: 20 }, (_, index) => (
-										<div
-											key={index}
-											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
-										></div>
-								  ))}
-							<SeeMoreCard title={"Now Playing"} />
+
+			{!search ? (
+				<div className="bg-gradient-to-t dark:from-megenta-300 from-slate-300 from-90% z-30 space-y-20 dark:text-white text-gray-800">
+					<div className="space-y-5">
+						<Link
+							to={"/explore/movie/playingnow"}
+							className="font-bold text-3xl pl-16 flex gap-4"
+						>
+							🎬
+							<h3 className="font-bold text-3xl hover:underline">
+								Playing Now
+							</h3>
+						</Link>
+						<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
+							<div className="flex space-x-10">
+								{movie && movie.now_playings.length > 0 && !isLoading
+									? movie?.now_playings?.map((item, index) => (
+											<Link to={"/detail/movie/" + item.id} key={index}>
+												<Card data={item} />
+											</Link>
+									  ))
+									: Array.from({ length: 20 }, (_, index) => (
+											<div
+												key={index}
+												className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
+											></div>
+									  ))}
+								<SeeMoreCard title={"Now Playing"} />
+							</div>
+						</div>
+					</div>
+					<div className="space-y-5">
+						<Link
+							to={"/explore/movie/trending"}
+							className="font-bold text-3xl pl-16 flex gap-4"
+						>
+							🔥
+							<h3 className="font-bold text-3xl hover:underline">Trending</h3>
+						</Link>
+						<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
+							<div className="flex space-x-10">
+								{movie && movie.trendings.length > 0 && !isLoading
+									? movie?.trendings?.map((item, index) => (
+											<Link to={"/detail/movie/" + item.id} key={index}>
+												<Card data={item} />
+											</Link>
+									  ))
+									: Array.from({ length: 20 }, (_, index) => (
+											<div
+												key={index}
+												className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
+											></div>
+									  ))}
+								<SeeMoreCard title={"Trending"} />
+							</div>
+						</div>
+					</div>
+					<div className="space-y-5">
+						<Link
+							to={"/explore/movie/upcoming"}
+							className="font-bold text-3xl pl-16 flex gap-4"
+						>
+							🗓️
+							<h3 className="font-bold text-3xl hover:underline">Upcoming</h3>
+						</Link>
+						<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
+							<div className="flex space-x-10">
+								{movie && movie.upcomings.length > 0 && !isLoading
+									? movie?.upcomings?.map((item, index) => (
+											<Link to={"/detail/movie/" + item.id} key={index}>
+												<Card data={item} />
+											</Link>
+									  ))
+									: Array.from({ length: 20 }, (_, index) => (
+											<div
+												key={index}
+												className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
+											></div>
+									  ))}
+								<SeeMoreCard title={"Upcoming"} />
+							</div>
+						</div>
+					</div>
+					<div className="space-y-5">
+						<Link
+							to={"/explore/movie/upcoming"}
+							className="font-bold text-3xl pl-16 flex gap-4"
+						>
+							🚀
+							<h3 className="font-bold text-3xl hover:underline">Popular</h3>
+						</Link>
+						<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
+							<div className="flex space-x-10">
+								{movie && movie.populars.length > 0 && !isLoading
+									? movie?.populars?.map((item, index) => (
+											<Link to={"/detail/movie/" + item.id} key={index}>
+												<Card data={item} />
+											</Link>
+									  ))
+									: Array.from({ length: 20 }, (_, index) => (
+											<div
+												key={index}
+												className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
+											></div>
+									  ))}
+								<SeeMoreCard title={"Popular"} />
+							</div>
+						</div>
+					</div>
+					<div className="space-y-5">
+						<Link
+							to={"/explore/movie/toprated"}
+							className="font-bold text-3xl pl-16 flex gap-4"
+						>
+							🌟
+							<h3 className="font-bold text-3xl hover:underline">Top Rated</h3>
+						</Link>
+						<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
+							<div className="flex space-x-10">
+								{movie && movie.top_rateds.length > 0 && !isLoading
+									? movie?.top_rateds?.map((item, index) => (
+											<Link to={"/detail/movie/" + item.id} key={index}>
+												<Card data={item} />
+											</Link>
+									  ))
+									: Array.from({ length: 20 }, (_, index) => (
+											<div
+												key={index}
+												className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
+											></div>
+									  ))}
+								<SeeMoreCard title={"Top Rated"} />
+							</div>
 						</div>
 					</div>
 				</div>
-				<div className="space-y-5">
-					<h3 className="font-bold text-3xl pl-16">🔥 Trending</h3>
-					<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
-						<div className="flex space-x-10">
-							{movie && movie.trendings.length > 0 && !isLoading
-								? movie?.trendings?.map((item, index) => (
-										<Link to={"/detail/movie/" + item.id} key={index}>
-											<Card data={item} />
-										</Link>
-								  ))
-								: Array.from({ length: 20 }, (_, index) => (
-										<div
-											key={index}
-											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
-										></div>
-								  ))}
-							<SeeMoreCard title={"Trending"} />
+			) : (
+				<>
+					<div className="w-[91.5%] grid grid-cols-5 mx-auto gap-4">
+						{movie?.searchs?.results?.map((item, index) => (
+							<div
+								key={index}
+								className="flex flex-col justify-center items-center"
+							>
+								<Link to={"/detail/movie/" + item.id}>
+									<Card data={item} />
+								</Link>
+							</div>
+						))}
+					</div>
+
+					<div className="w-full flex justify-center pt-10">
+						<div className="join">
+							<Link
+								to={`/explore?search=${search}&page=${
+									movie?.searchs?.page === 1
+										? movie?.searchs?.page
+										: movie?.searchs?.page - 1
+								}`}
+								className="join-item btn"
+							>
+								«
+							</Link>
+							<button className="join-item btn">
+								Page {movie?.searchs?.page}
+							</button>
+							<Link
+								to={`/explore?search=${search}&page=${
+									movie?.searchs?.page < movie?.searchs?.total_pages
+										? movie?.searchs?.page + 1
+										: movie?.searchs?.page
+								}`}
+								className="join-item btn"
+							>
+								»
+							</Link>
 						</div>
 					</div>
-				</div>
-				<div className="space-y-5">
-					<h3 className="font-bold text-3xl pl-16">🗓️ Upcoming</h3>
-					<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
-						<div className="flex space-x-10">
-							{movie && movie.upcomings.length > 0 && !isLoading
-								? movie?.upcomings?.map((item, index) => (
-										<Link to={"/detail/movie/" + item.id} key={index}>
-											<Card data={item} />
-										</Link>
-								  ))
-								: Array.from({ length: 20 }, (_, index) => (
-										<div
-											key={index}
-											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
-										></div>
-								  ))}
-							<SeeMoreCard title={"Upcoming"} />
-						</div>
-					</div>
-				</div>
-				<div className="space-y-5">
-					<h3 className="font-bold text-3xl pl-16">🚀 Popular</h3>
-					<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
-						<div className="flex space-x-10">
-							{movie && movie.populars.length > 0 && !isLoading
-								? movie?.populars?.map((item, index) => (
-										<Link to={"/detail/movie/" + item.id} key={index}>
-											<Card data={item} />
-										</Link>
-								  ))
-								: Array.from({ length: 20 }, (_, index) => (
-										<div
-											key={index}
-											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
-										></div>
-								  ))}
-							<SeeMoreCard title={"Popular"} />
-						</div>
-					</div>
-				</div>
-				<div className="space-y-5">
-					<h3 className="font-bold text-3xl pl-16">🌟 Top Rated</h3>
-					<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
-						<div className="flex space-x-10">
-							{movie && movie.top_rateds.length > 0 && !isLoading
-								? movie?.top_rateds?.map((item, index) => (
-										<Link to={"/detail/movie/" + item.id} key={index}>
-											<Card data={item} />
-										</Link>
-								  ))
-								: Array.from({ length: 20 }, (_, index) => (
-										<div
-											key={index}
-											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
-										></div>
-								  ))}
-							<SeeMoreCard title={"Top Rated"} />
-						</div>
-					</div>
-				</div>
-			</div>
+				</>
+			)}
 		</div>
 	);
 };
@@ -287,6 +372,8 @@ const ExploreView = ({ movie, isLoading }) => {
 ExploreView.propTypes = {
 	movie: PropTypes.object,
 	isLoading: PropTypes.bool,
+	search: PropTypes.string,
+	searchMovie: PropTypes.func.isRequired,
 };
 
 export default ExploreView;

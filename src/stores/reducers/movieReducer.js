@@ -24,14 +24,14 @@ const movieState = {
 	upcomings: [],
 	top_rateds: [],
 
-	searchs: [],
+	searchs: {},
 	filters: [],
 
-	rated_movies: [],
 	genres: [],
 	recommendations: [],
 	similars: [],
-
+	
+	rated_movies: {},
 	favorites: {},
 	watchlists: {},
 };

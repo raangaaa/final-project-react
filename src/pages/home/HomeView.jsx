@@ -105,7 +105,13 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 			{/* List Movie */}
 			<div className="relative bg-gradient-to-t dark:from-megenta-300 from-slate-300 from-90% z-30 space-y-20 pb-20 dark:text-white text-gray-800">
 				<div className="space-y-5">
-					<h3 className="font-bold text-3xl pl-16">🎬 Playing Now</h3>
+					<Link
+						to={"/explore/movie/playingnow"}
+						className="font-bold text-3xl pl-16 flex gap-4"
+					>
+						🎬
+						<h3 className="font-bold text-3xl hover:underline">Playing Now</h3>
+					</Link>{" "}
 					<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
 						<div className="flex space-x-10">
 							{movie && movie.now_playings.length > 0 && !isLoading
@@ -125,7 +131,13 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 					</div>
 				</div>
 				<div className="space-y-5">
-					<h3 className="font-bold text-3xl pl-16">🔥 Trending</h3>
+					<Link
+						to={"/explore/movie/trending"}
+						className="font-bold text-3xl pl-16 flex gap-4"
+					>
+						🔥
+						<h3 className="font-bold text-3xl hover:underline">Trending</h3>
+					</Link>{" "}
 					<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
 						<div className="flex space-x-10">
 							{movie && movie.trendings.length > 0 && !isLoading
@@ -145,7 +157,15 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 					</div>
 				</div>
 				<div className="space-y-5">
-					<h3 className="font-bold text-3xl pl-16">👤 Popular Person</h3>
+					<Link
+						to={"/explore?tab=person"}
+						className="font-bold text-3xl pl-16 flex gap-4"
+					>
+						👤
+						<h3 className="font-bold text-3xl hover:underline">
+							Popular Person
+						</h3>
+					</Link>
 					<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
 						<div className="flex space-x-10">
 							{person && person.populars.length > 0 && !isLoading
@@ -179,7 +199,13 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 					</div>
 				</div>
 				<div className="space-y-5">
-					<h3 className="font-bold text-3xl pl-16">🗓️ Upcoming</h3>
+					<Link
+						to={"/explore/movie/upcoming"}
+						className="font-bold text-3xl pl-16 flex gap-4"
+					>
+						🗓️
+						<h3 className="font-bold text-3xl hover:underline">Upcoming</h3>
+					</Link>{" "}
 					<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
 						<div className="flex space-x-10">
 							{movie && movie.upcomings.length > 0 && !isLoading
@@ -199,7 +225,13 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 					</div>
 				</div>
 				<div className="space-y-5">
-					<h3 className="font-bold text-3xl pl-16">🚀 Popular</h3>
+					<Link
+						to={"/explore/movie/upcoming"}
+						className="font-bold text-3xl pl-16 flex gap-4"
+					>
+						🚀
+						<h3 className="font-bold text-3xl hover:underline">Popular</h3>
+					</Link>{" "}
 					<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
 						<div className="flex space-x-10">
 							{movie && movie.populars.length > 0 && !isLoading
@@ -219,7 +251,13 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 					</div>
 				</div>
 				<div className="space-y-5">
-					<h3 className="font-bold text-3xl pl-16">🌟 Top Rated</h3>
+					<Link
+						to={"/explore/movie/toprated"}
+						className="font-bold text-3xl pl-16 flex gap-4"
+					>
+						🌟
+						<h3 className="font-bold text-3xl hover:underline">Top Rated</h3>
+					</Link>{" "}
 					<div className="w-[91.5%] py-4 overflow-x-auto mx-auto overflow-y-hidden">
 						<div className="flex space-x-10">
 							{movie && movie.top_rateds.length > 0 && !isLoading

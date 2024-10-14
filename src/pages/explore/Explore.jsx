@@ -11,6 +11,7 @@ import {
 	setTopRated,
 	setTrending,
 	setGenre,
+	setSearch,
 } from "../../stores/actions/movieAction";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { setPopularPeople } from "../../stores/actions/peopleAction";
@@ -19,7 +20,7 @@ const Explore = () => {
 	const state = useSelector((state) => state);
 	const dispatch = useDispatch();
 	const [isLoading, setIsLoading] = useState(true);
-	const [queryParams] = useSearchParams();
+	const [queryParams, setQueryParams] = useSearchParams();
 	const navigate = useNavigate();
 
 	const headers = useMemo(
@@ -31,13 +32,32 @@ const Explore = () => {
 	);
 
 	const tab = queryParams.get("tab");
-	const page = queryParams.get("page");
+	const page = queryParams.get("page") ?? "1";
+	const search = queryParams.get("search");
+
+	const searchMovie = (i) => {
+		setQueryParams({ search: i, page: page });
+	};
+
+	const fetchSearchMovie = useCallback(async () => {
+
+		try {
+			const response = await axios.get(
+				`https://api.themoviedb.org/3/search/movie?query=${search}&include_adult=true&language=en-US&page=` +
+					page,
+				{ headers }
+			);
+			dispatch(setSearch(response.data));
+		} catch (err) {
+			console.error(err.message);
+		}
+	}, [dispatch, headers, page, search]);
 
 	const fetchPopularPerson = useCallback(async () => {
 		setIsLoading(true);
 		try {
 			const response = await axios.get(
-				`https://api.themoviedb.org/3/person/popular?page=` + (page ?? 1),
+				`https://api.themoviedb.org/3/person/popular?page=` + page,
 				{ headers }
 			);
 			dispatch(setPopularPeople(response.data.results));
@@ -155,6 +175,12 @@ const Explore = () => {
 		tab,
 	]);
 
+	useEffect(() => {
+		if (search !== null && tab === null) {
+			fetchSearchMovie();
+		}
+	}, [fetchSearchMovie, search, tab]);
+
 	if (tab !== null && tab.toLowerCase() === "genre") {
 		return <ExploreGenreView genres={state.movie.genres} />;
 	}
@@ -169,7 +195,14 @@ const Explore = () => {
 		);
 	}
 
-	return <ExploreView movie={state.movie} isLoading={isLoading} />;
+	return (
+		<ExploreView
+			movie={state.movie}
+			isLoading={isLoading}
+			search={search}
+			searchMovie={searchMovie}
+		/>
+	);
 };
 
 export default Explore;
