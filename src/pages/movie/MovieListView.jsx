@@ -3,25 +3,32 @@ import { Link } from "react-router-dom";
 import Card from "../../components/Card";
 import { memo } from "react";
 
-const MovieListView = ({ movie, list, page, genreId }) => {
+const MovieListView = ({ movie, list, title, page, isLoading, genreId }) => {
 	return (
 		<div
 			id="movie"
 			className="dark:bg-megenta-300 bg-slate-300 dark:text-white text-gray-800 min-h-screen font-sans space-y-10 py-28"
 		>
-			<h1 className="text-4xl font-bold text-center">{list}</h1>
+			<h1 className="text-4xl font-bold text-center">{title}</h1>
 
 			<div className="w-[91.5%] grid grid-cols-5 mx-auto gap-4">
-				{movie?.map((item, index) => (
-					<div
-						key={index}
-						className="flex flex-col gap-2 justify-center items-center"
-					>
-						<Link to={"/detail/movie/" + item.id}>
-							<Card data={item} />
-						</Link>
-					</div>
-				))}
+				{!isLoading
+					? movie?.map((item, index) => (
+							<div
+								key={index}
+								className="flex flex-col gap-2 justify-center items-center"
+							>
+								<Link to={"/detail/movie/" + item.id}>
+									<Card data={item} />
+								</Link>
+							</div>
+					  ))
+					: Array.from({ length: 20 }, (_, index) => (
+							<div
+								key={index}
+								className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
+							></div>
+					  ))}
 			</div>
 
 			<div className="w-full flex justify-center pt-10">
@@ -56,7 +63,9 @@ const MovieListView = ({ movie, list, page, genreId }) => {
 MovieListView.propTypes = {
 	movie: PropTypes.array,
 	list: PropTypes.string,
+	title: PropTypes.string,
 	page: PropTypes.string,
+	isLoading: PropTypes.bool,
 	genreId: PropTypes.string,
 };
 

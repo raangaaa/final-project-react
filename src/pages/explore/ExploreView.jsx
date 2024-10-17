@@ -212,7 +212,9 @@ const ExploreView = ({ movie, isLoading, search, searchMovie }) => {
 												className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 											></div>
 									  ))}
-								<SeeMoreCard title={"Now Playing"} />
+								<Link to={"/explore/movie/playingnow"}>
+									<SeeMoreCard title={"Now Playing"} />
+								</Link>
 							</div>
 						</div>
 					</div>
@@ -238,7 +240,9 @@ const ExploreView = ({ movie, isLoading, search, searchMovie }) => {
 												className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 											></div>
 									  ))}
-								<SeeMoreCard title={"Trending"} />
+								<Link to={"/explore/movie/trending"}>
+									<SeeMoreCard title={"Trending"} />
+								</Link>
 							</div>
 						</div>
 					</div>
@@ -264,13 +268,15 @@ const ExploreView = ({ movie, isLoading, search, searchMovie }) => {
 												className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 											></div>
 									  ))}
-								<SeeMoreCard title={"Upcoming"} />
+								<Link to={"/explore/movie/upcoming"}>
+									<SeeMoreCard title={"Upcoming"} />
+								</Link>
 							</div>
 						</div>
 					</div>
 					<div className="space-y-5">
 						<Link
-							to={"/explore/movie/upcoming"}
+							to={"/explore/movie/popular"}
 							className="font-bold text-3xl pl-16 flex gap-4"
 						>
 							🚀
@@ -290,7 +296,9 @@ const ExploreView = ({ movie, isLoading, search, searchMovie }) => {
 												className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 											></div>
 									  ))}
-								<SeeMoreCard title={"Popular"} />
+								<Link to={"/explore/movie/popular"}>
+									<SeeMoreCard title={"Popular"} />
+								</Link>
 							</div>
 						</div>
 					</div>
@@ -316,7 +324,9 @@ const ExploreView = ({ movie, isLoading, search, searchMovie }) => {
 												className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 											></div>
 									  ))}
-								<SeeMoreCard title={"Top Rated"} />
+								<Link to={"/explore/movie/toprated"}>
+									<SeeMoreCard title={"Top Rated"} />
+								</Link>
 							</div>
 						</div>
 					</div>

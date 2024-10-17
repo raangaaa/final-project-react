@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import MovieListView from "./MovieListView";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +18,7 @@ const MovieList = () => {
 		useSelector((state) => state.movie);
 	const dispatch = useDispatch();
 	const [queryParams] = useSearchParams();
+	const [isLoading, setIsLoading] = useState(true);
 	const navigate = useNavigate();
 	const { list } = useParams();
 	const page = queryParams.get("page") ?? "1";
@@ -86,6 +87,7 @@ const MovieList = () => {
 	}, [apiUrls, dispatch, list]);
 
 	useEffect(() => {
+		setIsLoading(true);
 		if (
 			list.toLowerCase() === "playingnow" ||
 			list.toLowerCase() === "trending" ||
@@ -95,8 +97,17 @@ const MovieList = () => {
 			list.toLowerCase() === "genre"
 		) {
 			fetchMovies();
+			setIsLoading(false);
 		}
 	}, [fetchMovies, list]);
+	
+	useEffect(() => {
+		const open = (sectionId) => {
+			const section = document.getElementById(sectionId);
+			section.scrollIntoView({ behavior: "smooth", block: "start" });
+		};
+		open("root");
+	}, []);
 
 	if (!list) {
 		navigate("/explore");
@@ -105,21 +116,70 @@ const MovieList = () => {
 
 	switch (list.toLowerCase()) {
 		case "playingnow":
-			return <MovieListView movie={now_playings} list={list} page={page} />;
+			return (
+				<MovieListView
+					movie={now_playings}
+					list={list}
+					title={"Now Playing Movie"}
+					page={page}
+					isLoading={isLoading}
+				/>
+			);
 		case "trending":
-			return <MovieListView movie={trendings} list={list} page={page} />;
+			return (
+				<MovieListView
+					movie={trendings}
+					list={list}
+					title={"Trending Movie"}
+					page={page}
+					isLoading={isLoading}
+				/>
+			);
 		case "upcoming":
-			return <MovieListView movie={upcomings} list={list} page={page} />;
+			return (
+				<MovieListView
+					movie={upcomings}
+					list={list}
+					title={"Upcoming Movie"}
+					page={page}
+					isLoading={isLoading}
+				/>
+			);
 		case "popular":
-			return <MovieListView movie={populars} list={list} page={page} />;
+			return (
+				<MovieListView
+					movie={populars}
+					list={list}
+					title={"Popular Movie"}
+					page={page}
+					isLoading={isLoading}
+				/>
+			);
 		case "toprated":
-			return <MovieListView movie={top_rateds} list={list} page={page} />;
+			return (
+				<MovieListView
+					movie={top_rateds}
+					list={list}
+					title={"Top Rated Movie"}
+					page={page}
+					isLoading={isLoading}
+				/>
+			);
 		case "genre":
 			if (!genreId) {
 				navigate("/explore?tab=genre");
 				return null;
 			} else {
-				return <MovieListView movie={filters} list={list} page={page} genreId={genreId} />;
+				return (
+					<MovieListView
+						movie={filters}
+						list={list}
+						title={"Movie by Genre"}
+						page={page}
+						isLoading={isLoading}
+						genreId={genreId}
+					/>
+				);
 			}
 		default:
 			console.log(list);

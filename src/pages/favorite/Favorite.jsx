@@ -62,6 +62,14 @@ const Favorite = () => {
 		fetchFavoriteMovie();
 	}, [fetchFavoriteMovie]);
 
+	useEffect(() => {
+		const open = (sectionId) => {
+			const section = document.getElementById(sectionId);
+			section.scrollIntoView({ behavior: "smooth", block: "start" });
+		};
+		open("root");
+	}, []);
+
 	return (
 		<>
 			<Toaster />

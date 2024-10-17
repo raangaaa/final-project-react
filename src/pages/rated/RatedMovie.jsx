@@ -18,7 +18,8 @@ const RatedMovie = () => {
 		setIsloading(true);
 		try {
 			const response = await axios.get(
-				"https://api.themoviedb.org/3/account/21559324/rated/movies?page=" + page,
+				"https://api.themoviedb.org/3/account/21559324/rated/movies?page=" +
+					page,
 				{
 					headers: {
 						Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
@@ -28,7 +29,7 @@ const RatedMovie = () => {
 			);
 			dispatch(setRatedMovie(response.data));
 			setIsloading(false);
-			console.log(response.data)
+			console.log(response.data);
 		} catch (err) {
 			console.error(err.message);
 		}
@@ -66,6 +67,14 @@ const RatedMovie = () => {
 	useEffect(() => {
 		fetchRatedMovie();
 	}, [fetchRatedMovie]);
+
+	useEffect(() => {
+		const open = (sectionId) => {
+			const section = document.getElementById(sectionId);
+			section.scrollIntoView({ behavior: "smooth", block: "start" });
+		};
+		open("root");
+	}, []);
 
 	return (
 		<>

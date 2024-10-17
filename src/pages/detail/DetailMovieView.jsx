@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Card from "../../components/Card";
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 
 const DetailMovieView = ({
 	detailMovie,
@@ -22,13 +22,6 @@ const DetailMovieView = ({
 
 	const [nav, setNav] = useState(1);
 
-	useEffect(() => {
-		const open = (sectionId) => {
-			const section = document.getElementById(sectionId);
-			section.scrollIntoView({ behavior: "smooth", block: "start" });
-		};
-		open("detail");
-	}, []);
 
 	return (
 		<div

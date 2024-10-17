@@ -1,18 +1,11 @@
 import PropTypes from "prop-types";
 import Card from "../../components/Card";
 import SeeMoreCard from "../../components/SeeMoreCard";
-import { memo, useEffect } from "react";
+import { memo } from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
 
 const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
-	useEffect(() => {
-		const open = (sectionId) => {
-			const section = document.getElementById(sectionId);
-			section.scrollIntoView({ behavior: "smooth", block: "start" });
-		};
-		open("home");
-	}, []);
 
 	return (
 		<div
@@ -126,7 +119,9 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 										></div>
 								  ))}
-							<SeeMoreCard title={"Now Playing"} />
+							<Link to={"/explore/movie/playingnow"}>
+								<SeeMoreCard title={"Now Playing"} />
+							</Link>{" "}
 						</div>
 					</div>
 				</div>
@@ -152,7 +147,9 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 										></div>
 								  ))}
-							<SeeMoreCard title={"Trending"} />
+							<Link to={"/explore/movie/trending"}>
+								<SeeMoreCard title={"Trending"} />
+							</Link>{" "}
 						</div>
 					</div>
 				</div>
@@ -220,13 +217,15 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 										></div>
 								  ))}
-							<SeeMoreCard title={"Upcoming"} />
+							<Link to={"/explore/movie/upcoming"}>
+								<SeeMoreCard title={"Upcoming"} />
+							</Link>{" "}
 						</div>
 					</div>
 				</div>
 				<div className="space-y-5">
 					<Link
-						to={"/explore/movie/upcoming"}
+						to={"/explore/movie/popular"}
 						className="font-bold text-3xl pl-16 flex gap-4"
 					>
 						🚀
@@ -246,7 +245,9 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 										></div>
 								  ))}
-							<SeeMoreCard title={"Popular"} />
+							<Link to={"/explore/movie/popular"}>
+								<SeeMoreCard title={"Popular"} />
+							</Link>{" "}
 						</div>
 					</div>
 				</div>
@@ -272,7 +273,9 @@ const HomeView = ({ movie, person, video, randomMovie, isLoading }) => {
 											className="skeleton h-64 w-44 shrink-0 rounded-lg dark:bg-gray-950 bg-gray-500"
 										></div>
 								  ))}
-							<SeeMoreCard title={"Top Rated"} />
+							<Link to={"/explore/movie/toprated"}>
+								<SeeMoreCard title={"Top Rated"} />
+							</Link>{" "}
 						</div>
 					</div>
 				</div>

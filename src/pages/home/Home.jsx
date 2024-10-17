@@ -116,7 +116,7 @@ const Home = () => {
 					(result) => result.type === "Trailer"
 				).key;
 				const id2 = videosResponse.data.results[0].key;
-				if(!isLoading) {
+				if (!isLoading) {
 					setVideo(
 						`https://www.youtube.com/embed/${
 							id ?? id2
@@ -160,6 +160,14 @@ const Home = () => {
 		fetchTrending,
 		fetchUpcoming,
 	]);
+
+	useEffect(() => {
+		const open = (sectionId) => {
+			const section = document.getElementById(sectionId);
+			section.scrollIntoView({ behavior: "smooth", block: "start" });
+		};
+		open("root");
+	}, []);
 
 	return (
 		<HomeView

@@ -40,7 +40,6 @@ const Explore = () => {
 	};
 
 	const fetchSearchMovie = useCallback(async () => {
-
 		try {
 			const response = await axios.get(
 				`https://api.themoviedb.org/3/search/movie?query=${search}&include_adult=true&language=en-US&page=` +
@@ -180,6 +179,14 @@ const Explore = () => {
 			fetchSearchMovie();
 		}
 	}, [fetchSearchMovie, search, tab]);
+
+	useEffect(() => {
+		const open = (sectionId) => {
+			const section = document.getElementById(sectionId);
+			section.scrollIntoView({ behavior: "smooth", block: "start" });
+		};
+		open("root");
+	}, []);
 
 	if (tab !== null && tab.toLowerCase() === "genre") {
 		return <ExploreGenreView genres={state.movie.genres} />;
