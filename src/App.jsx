@@ -24,8 +24,6 @@ const App = () => {
 					<Route path="/explore" element={<Explore />} /> {/* Explore => search, movie, genre, person */}
 					<Route path="/explore/movie/:list" element={<MovieList />} /> {/* All movie by sortlist */}
 					<Route path="/detail/movie/:id" element={<Detail />} />
-					<Route path="/detail/person/:id" />
-					<Route path="/detail/company/:id" />
 					<Route path="/favorite" element={<Favorite />} />
 					<Route path="/watchlist" element={<Watchlist />} />
 					<Route path="/rated/movie" element={<RatedMovie />} />
